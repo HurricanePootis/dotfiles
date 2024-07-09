@@ -44,6 +44,24 @@ services.pipewire = {
 	};
 };
 
+fileSystems."/run/media/hurricane/superssd" =
+    { device = "/dev/disk/by-uuid/33545447-1e6f-4086-9ad0-aebefd88ce1c";
+      fsType = "btrfs";
+      options = [ "compress=zstd" ];
+    };
+
+
+networking.nameservers = [ "2606:4700:4700::1111" "1.1.1.1" ];
+services.resolved = {
+	enable = true;
+	dnsovertls = "opportunistic";
+	dnssec = "true";
+	extraConfig = "MulticastDNS=resolve";
+};
+services.avahi = {
+	enable = true;
+};
+
 # Packages n Stuff
 
 services.xserver.enable = true;
@@ -66,7 +84,7 @@ programs.steam = {
 hardware.steam-hardware.enable = true;
 
 nixpkgs.config.allowUnfree = true;
-environment.systemPackages = with pkgs; [ librewolf papirus-icon-theme prismlauncher vesktop amdgpu_top spotify fd ];
+environment.systemPackages = with pkgs; [ librewolf papirus-icon-theme prismlauncher vesktop amdgpu_top spotify fd compsize];
 
 
 
