@@ -19,12 +19,24 @@ services.btrfs = {
 	};
 };
 
+boot = {
+	kernelPackages = pkgs.linuxPackages_latest;
+	kernelParams = [ "amd_pstate=active" ];
+};
+
+# Packages n Stuff
 
 services.xserver.enable = true;
-services.displayManager.sddm.enable = true;
+services.displayManager.sddm = {
+	enable = true;
+	wayland.enable = true;
+};
 services.desktopManager.plasma6.enable = true;
-
-
+services.power-profiles-daemon.enable = true;
+programs.git = {
+	enable = true;
+	lfs.enable = true;
+};
 
 
 environment.systemPackages = with pkgs; [ librewolf papirus-icon-theme prismlauncher vesktop ];
