@@ -24,6 +24,11 @@ boot = {
 	kernelParams = [ "amd_pstate=active" ];
 };
 
+system.autoUpgrade = {
+	enable = true;
+	dates = "daily";
+};
+
 # Packages n Stuff
 
 services.xserver.enable = true;
