@@ -29,6 +29,21 @@ system.autoUpgrade = {
 	dates = "daily";
 };
 
+zramSwap = {
+	enable = true;
+	priority = 1;
+	algorithm = "zstd";
+};
+
+services.pipewire = {
+	alsa.enable = true;
+	extraConfig.pipewire."10-clock-rate" = {
+		"context.properties" = {
+			"default.clock.allowed-rates" = [ 44100 48000 96000 192000 ];
+		};
+	};
+};
+
 # Packages n Stuff
 
 services.xserver.enable = true;
@@ -44,7 +59,14 @@ programs.git = {
 };
 
 
-environment.systemPackages = with pkgs; [ librewolf papirus-icon-theme prismlauncher vesktop ];
+programs.steam = {
+	enable = true;
+	extraCompatPackages = with pkgs; [ proton-ge-bin ];
+};
+hardware.steam-hardware.enable = true;
+
+nixpkgs.config.allowUnfree = true;
+environment.systemPackages = with pkgs; [ librewolf papirus-icon-theme prismlauncher vesktop amdgpu_top spotify fd ];
 
 
 
