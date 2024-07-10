@@ -6,6 +6,8 @@
 
 {
 # System Options
+powerManagement.enable = true;
+nix.settings.auto-optimise-store = true;
 powerManagement.powerDownCommands = "${pkgs.kmod}/bin/rmmod mt7912e";
 powerManagement.powerUpCommands = "${pkgs.kmod}/bin/modprobe mt7921e";
 services.fstrim = {
@@ -84,8 +86,13 @@ programs.steam = {
 hardware.steam-hardware.enable = true;
 
 nixpkgs.config.allowUnfree = true;
-environment.systemPackages = with pkgs; [ librewolf papirus-icon-theme prismlauncher vesktop amdgpu_top spotify fd compsize];
-
+environment.systemPackages = with pkgs; [ librewolf papirus-icon-theme prismlauncher vesktop amdgpu_top spotify fd compsize kdePackages.sddm-kcm lsof libreoffice-qt6-fresh ];
+fonts.packages = with pkgs; [
+  noto-fonts
+  noto-fonts-cjk
+  twemoji-color-font
+  liberation_ttf
+];
 
 
 programs = {
