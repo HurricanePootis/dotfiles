@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./user-configuration.nix
+      ./overlays.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

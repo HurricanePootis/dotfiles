@@ -6,10 +6,16 @@
 
 {
 # System Options
+# AMD Microcode
+hardware.cpu.amd.updateMicrocode = true;
+# Enabled powerdevil on KDE
 powerManagement.enable = true;
+# Hard Links
 nix.settings.auto-optimise-store = true;
-powerManagement.powerDownCommands = "${pkgs.kmod}/bin/rmmod mt7912e";
+# mt7921e fix cause mediatek
+powerManagement.powerDownCommands = "${pkgs.kmod}/bin/rmmod mt7921e";
 powerManagement.powerUpCommands = "${pkgs.kmod}/bin/modprobe mt7921e";
+# Drive sutff
 services.fstrim = {
 	enable = true;
 	interval = "monthly";
@@ -20,12 +26,13 @@ services.btrfs = {
 		enable = true;
 	};
 };
-
+# AMD pstate
 boot = {
 	kernelPackages = pkgs.linuxPackages_latest;
 	kernelParams = [ "amd_pstate=active" ];
 };
 
+# Auto upgrades cause unstable
 system.autoUpgrade = {
 	enable = true;
 	dates = "daily";
@@ -37,6 +44,7 @@ zramSwap = {
 	algorithm = "zstd";
 };
 
+# My audio card supports these clock rates
 services.pipewire = {
 	alsa.enable = true;
 	extraConfig.pipewire."10-clock-rate" = {
@@ -46,6 +54,7 @@ services.pipewire = {
 	};
 };
 
+# Games drive
 fileSystems."/run/media/hurricane/superssd" =
     { device = "/dev/disk/by-uuid/33545447-1e6f-4086-9ad0-aebefd88ce1c";
       fsType = "btrfs";
@@ -63,6 +72,8 @@ services.resolved = {
 services.avahi = {
 	enable = true;
 };
+hardware.bluetooth.enable = true;
+services.printing.enable = true;
 
 # Packages n Stuff
 
