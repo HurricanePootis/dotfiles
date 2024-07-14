@@ -1,14 +1,11 @@
 let
-  powerdevilOverlay =
-    final: prev: {
-      kdePackages = prev.kdePackages // {
-        powerdevil = prev.kdePackages.powerdevil.overrideAttrs (old: {
-          buildInputs = old.buildInputs ++ [ final.ddcutil ];
-        });
-      };
+  powerdevilOverlay = final: prev: {
+    kdePackages = prev.kdePackages // {
+      powerdevil = prev.kdePackages.powerdevil.overrideAttrs
+        (old: { buildInputs = old.buildInputs ++ [ final.ddcutil ]; });
     };
-in
-{
+  };
+in {
   hardware.i2c.enable = true;
   nixpkgs.overlays = [ powerdevilOverlay ];
 }
